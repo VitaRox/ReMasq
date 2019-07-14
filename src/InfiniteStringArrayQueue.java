@@ -38,11 +38,7 @@ public class InfiniteStringArrayQueue {
     // @return boolean, True if it has room for more elements in its current form,
     // False if otherwise.
     private boolean hasRoom() {
-        if(capacity > getSize()) {
-            return true;
-        } else {
-            return false;
-        }
+        return capacity > getSize();
     }
 
     // adds element to the end of the queue

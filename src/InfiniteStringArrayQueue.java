@@ -9,6 +9,11 @@ public class InfiniteStringArrayQueue {
     // fields:
 
     private String[] stringArray;
+
+    /*
+     * @field int capacity, the initial size of the underlying array
+     * being used to implement this Queue.
+     */
     private int capacity;
 
     public InfiniteStringArrayQueue(int capacity) {

@@ -11,12 +11,17 @@ public class InfiniteStringArrayQueue {
     private String[] stringArray;
     private int capacity;
 
-    private InfiniteStringArrayQueue() {
+    public InfiniteStringArrayQueue(int capacity) {
+        this.capacity = capacity;
+        stringArray = new String[capacity];
+    }
+
+    public InfiniteStringArrayQueue() {
         this.capacity = 100;
         stringArray = new String[capacity];
     }
 
-    private int getSize() {
+    int getSize() {
 
         int size = 0;
         while(stringArray[size] != null) {
@@ -26,7 +31,7 @@ public class InfiniteStringArrayQueue {
     }
 
     // returns True if it has anything in it.
-    public boolean hasContents() {
+    boolean hasContents() {
         for(String item : stringArray) {
             if(item != null) {
                 return true;
@@ -37,18 +42,14 @@ public class InfiniteStringArrayQueue {
 
     // @return boolean, True if it has room for more elements in its current form,
     // False if otherwise.
-    private boolean hasRoom() {
-        if(capacity > getSize()) {
-            return true;
-        } else {
-            return false;
-        }
+    boolean hasRoom() {
+        return capacity > getSize();
     }
 
     // adds element to the end of the queue
     // @return boolean, True if something
     // successfully added, false otherwise.
-    public boolean add(String addition) {
+    boolean add(String addition) {
         if(hasRoom()) {
             stringArray[getSize()] = addition;
             return true;
@@ -58,17 +59,21 @@ public class InfiniteStringArrayQueue {
     }
 
     // remember: FIFO
-    public String remove() throws NoSuchElementException {
+    String remove() throws NoSuchElementException {
 
         String item ="";
         try {
-            item = stringArray[0];
-            int size = getSize();
+            if (!this.hasContents()) {
+                return " ";
+            } else {
+                item = stringArray[0];
+                int size = getSize();
 
-            // shifts the elems of our array down one index position.
-            for(int i = 0; i < size; i++) {
-                String temp = stringArray[i + 1];
-                stringArray[i] = temp;
+                // shifts the elems of our array down one index position.
+                for(int i = 0; i < size; i++) {
+                    String temp = stringArray[i + 1];
+                    stringArray[i] = temp;
+                }
             }
         } catch (NoSuchElementException e) {
             System.err.println(e.getMessage());
@@ -77,7 +82,7 @@ public class InfiniteStringArrayQueue {
     }
 
     // returns the item at the head of the queue
-    public String peek() {
+    String peek() {
         return stringArray[0];
     }
 
@@ -86,20 +91,32 @@ public class InfiniteStringArrayQueue {
 
         String ourString= "";
 
-        for(int i = 0; i < getSize(); i++) {
-            ourString += remove() + ", ";
+        for(int i = 0; i < getSize() - 1; i++) {
+              ourString += stringArray[i] + ", ";
         }
-        ourString += (stringArray[getSize()] + ".");
+        ourString += stringArray[getSize() - 1];
         return ourString;
     }
 
     public static void main(String[] args) {
-        InfiniteStringArrayQueue ourQueue = new InfiniteStringArrayQueue();
+
+        InfiniteStringArrayQueue ourQueue1 = new InfiniteStringArrayQueue();
         String[] testArray = {"Apple","Banana","Cameltoe","Dogwood"};
+
+        InfiniteStringArrayQueue ourQueue2 = new InfiniteStringArrayQueue(5);
+        String[] testArray2 = {"alpha","beta","delta","gamma"};
+
         for(int i = 0; i < testArray.length; i++) {
-            ourQueue.add(testArray[i]);
+            ourQueue1.add(testArray[i]);
         }
-        System.out.println(ourQueue.toString());
+
+        for(int i = 0; i < testArray2.length; i++) {
+            ourQueue2.add(testArray[i]);
+        }
+
+        System.out.println(ourQueue2.toString());
+        System.out.println("howdy howdy howdy");
+        System.out.println(ourQueue1.toString());
     }
 
 

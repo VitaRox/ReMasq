@@ -1,5 +1,6 @@
 
-import java.util.NoSuchElementException;
+import java.util.*;
+import java.lang.*;
 
 
 

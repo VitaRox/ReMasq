@@ -1,4 +1,5 @@
 import java.util.*;
+import java.lang.*;
 
 public class InfiniteIntArrayStack {
 
@@ -81,7 +82,7 @@ public class InfiniteIntArrayStack {
      * Peek lets the user see what the most-recently-added element in the stack is.
      * O(n)
      * @param None
-     * @throws NegativeArrayException
+     * @throws NegativeArraySizeException
      * @return Last int added to the stack.
      */
      int peek() {
@@ -98,14 +99,14 @@ public class InfiniteIntArrayStack {
      * Checks to see whether the current version
      * of the stack has capacity to add more elements.
      * O(n^2)
-     * @param None
+     * @param
      * @return boolean
      */
     public boolean hasSpace() {
 
         for (int i=0; i < intArray.length; i++){
-            if ((Integer)intArray[i] == null) {
-                return true;
+            if (intArray[i] == 0) {  // note to self: this will always eval to True; but do we need this
+                return true;                     // in order for it/Remasque to work? Focus on essentials, not weeds.
             }
         }
         return false;
@@ -114,13 +115,13 @@ public class InfiniteIntArrayStack {
     /**
      * Checks to see whether the stack has had any elements added to it.
      * O(n^2)
-     * @param None
+     * @param
      * @return boolean
      */
     public boolean hasContents() {
 
         for (int i = 0; i < intArray.length; i++){
-            if((Integer)intArray[i] == null) {
+            if(intArray[i] == 0) {
                 return true;
             }
         }
@@ -129,7 +130,7 @@ public class InfiniteIntArrayStack {
 
     /**
      * O(k)
-     * @param None
+     * @param
      * @return The number of elements that are currently stored in the structure
      */
     public int getSize() {
@@ -138,7 +139,7 @@ public class InfiniteIntArrayStack {
         int count = 0;
 
         for(int i = 0; i < intArray.length; i++) {
-            if((Integer)intArray[i] != null){
+            if(intArray[i] != 0){
                 count++;
             }
         }

@@ -13,31 +13,34 @@ public class InfiniteIntArrayStack {
     // zero time op
     private int capacity;
 
+    // The number of elements the structure contains;
+    private int size;
+
     /**
      * O(n)
      * A default constructor, creates underlying array
-     * with 10 elements.
-     * @param int capacity, the number of elements it can contain.
+     * with 100 elements.
      */
-    public InfiniteIntArrayStack(int capacity) {
-            this.capacity = capacity;
-            intArray = new int[capacity];
-    }
-
     public InfiniteIntArrayStack() {
             this.capacity = 100;
             intArray = new int[capacity];
     }
 
+    public InfiniteIntArrayStack(int capacity) {
+        this.capacity = capacity;
+        intArray = new int[capacity];
+    }
+
     /**
      * Push adds the int in question, o, to the top of the stack.
      * O(n^2)
-     * @param int value
+     * @param value
      */
     void push(int value){
         
         if(hasSpace()) {
             intArray[getSize()] = value;
+            this.size++;
         }else{    
             //Temporary variable to hold new array with shifted elements.
             int[] newArray = new int[getCapacity() * 2];
@@ -46,6 +49,7 @@ public class InfiniteIntArrayStack {
             for (int i = 1; i < intArray.length; i++) {
                 newArray[i] = value;
             }
+        this.size++;
         intArray = newArray;
         }
     }
@@ -57,7 +61,7 @@ public class InfiniteIntArrayStack {
     /**
      * Pop removes the last int added to the stack.
      * O(n^2)
-     * @param None
+     * @param
      * @return int popped, the int removed from the top of stack (last index).
      * @throws NullPointerException
      */
@@ -70,6 +74,8 @@ public class InfiniteIntArrayStack {
             popped = intArray[intArray.length - 1];
             // Return a new copy of array with last element removed.
             intArray = Arrays.copyOf(intArray, intArray.length - 1);
+            // Decrement the size of the stack.
+            size--;
         }catch(NullPointerException e) {
             throw new NullPointerException("Stack contains no elements.");
         }catch(NegativeArraySizeException f) {
@@ -81,7 +87,7 @@ public class InfiniteIntArrayStack {
     /**
      * Peek lets the user see what the most-recently-added element in the stack is.
      * O(n)
-     * @param None
+     * @param
      * @throws NegativeArraySizeException
      * @return Last int added to the stack.
      */
@@ -104,12 +110,7 @@ public class InfiniteIntArrayStack {
      */
     public boolean hasSpace() {
 
-        for (int i=0; i < intArray.length; i++){
-            if (intArray[i] == 0) {  // note to self: this will always eval to True; but do we need this
-                return true;                     // in order for it/Remasque to work? Focus on essentials, not weeds.
-            }
-        }
-        return false;
+        return this.getCapacity() - this.getSize() > 0;
     }
 
     /**
@@ -120,12 +121,7 @@ public class InfiniteIntArrayStack {
      */
     public boolean hasContents() {
 
-        for (int i = 0; i < intArray.length; i++){
-            if(intArray[i] == 0) {
-                return true;
-            }
-        }
-        return false;
+        return getSize() > 0;
     }
 
     /**
@@ -135,14 +131,6 @@ public class InfiniteIntArrayStack {
      */
     public int getSize() {
 
-        // Tracks the number of elements that aren't null (empty).
-        int count = 0;
-
-        for(int i = 0; i < intArray.length; i++) {
-            if(intArray[i] != 0){
-                count++;
-            }
-        }
-        return count;
+        return this.size;
     }
 }

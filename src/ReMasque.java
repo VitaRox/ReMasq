@@ -8,7 +8,7 @@ import java.util.*;
  *   A class which reads the textual input from a DAT file,
  *   reverses it, and thereby produces a "backmasked" or "unbackmasked" audio file.
  **/
-public class ReMasque {
+public class ReMasq {
 
     // Fields:
     // Create new input file, read from input file using Scanner.io or something
@@ -22,11 +22,11 @@ public class ReMasque {
      * Will do the "work" of reversing the appropriate info from the source
      * file and writing it to the output file.
      * Returns a "backwards" version of the .dat file we originally input.
-     * @param File inFile, the file to be opened and read from.
-     * @param File outFile, the file to be created and written to from input.
+     * @param inFile, the file to be opened and read from.
+     * @param outFile, the file to be created and written to from input.
      * @return A new .dat file with the displacement info written in opposite order
      */
-    public ReMasque(File inFile, File outFile)
+    public ReMasq(File inFile, File outFile)
             throws IOException {
 
         // Get input file (to be read from)
@@ -126,12 +126,12 @@ public class ReMasque {
             in = new File(args[0]);
             out = new File(args[1]);
             try {
-                new ReMasque(in, out);
+                new ReMasq(in, out);
                 System.out.println("File backmasking successful.");
                 return;
             }catch(IOException e){
 
-                System.err.println("Useage: ReMasque " + in + " " + out
+                System.err.println("Useage: ReMasq " + in + " " + out
                         + " " + e.getMessage());
                 return;
             }
